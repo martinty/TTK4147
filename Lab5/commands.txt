@@ -1,0 +1,5 @@
+make
+./ex5
+
+sudo cat /dev/ttyS0
+sudo cat /dev/ttyS0 > task.txt
