@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-#include "com.h" 
+#include "communication.h" 
 #include "../network/udp.h"
-
-#include<semaphore.h>
+#include <semaphore.h>
 
 #define     UDP_PORT        9999
 #define     IP              "192.168.0.1"  
@@ -17,11 +15,6 @@
  int signal;
  int set;
  int get;
- sem_t semvar;
- //pthread_mutex_t mtx_signal;
- //pthread_mutex_t mtx_resources;
- //pthread_mutex_t mtx_action;
- 
 
 void com_server_init(void){
     conn = udpconn_new(IP, UDP_PORT);
@@ -31,13 +24,10 @@ void com_server_init(void){
     set = 0;
     get = 0;
     char sendBuf[64];
-    
-    //pthread_mutex_init(&mtx_signal, NULL);
-    //pthread_mutex_init(&mtx_resources, NULL);
-    //pthread_mutex_init(&mtx_action, NULL);
-    
     sprintf(sendBuf, "START");    
     udpconn_send(conn, sendBuf);
+    pthread_mutex_init(&lock,NULL);
+    
 }
 
 void com_stop(void){
@@ -57,12 +47,10 @@ void com_set_u(float value){
 
 void com_request_set_u(){
     set = 1;
-    sem_post(&semvar);
 }
 
 void com_request_get_y(){
     get = 1;
-    sem_post(&semvar);
 }
 
 void* com_recieve_UDP(void* args){
@@ -71,7 +59,6 @@ void* com_recieve_UDP(void* args){
         udpconn_receive(conn, recvBuf, sizeof(recvBuf));
         if(recvBuf[0] == 'S'){
             signal = 1;
-            sem_post(&semvar);
         }
         else if(recvBuf[0] == 'G'){
             char* value;
@@ -101,12 +88,7 @@ void* com_transmit_UDP(void* args){
             udpconn_send(conn, sendBuf);
             set = 0;
         }
-        //sem_wait(&semvar);
     }
 }
-
-
-
-
 
 

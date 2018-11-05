@@ -48,6 +48,7 @@ void controll_handler(){
 	    
 		update_PID();
 		update_system();
+		
         if(time_check_timer()){
             if(reference == 1){
                 reference = 0;

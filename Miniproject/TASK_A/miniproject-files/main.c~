@@ -1,21 +1,11 @@
 #include "com/com.h"
 #include "controller/controller.h"
-#include <time.h> 
-
-#include <stdio.h>
-
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
 
 // sudo chown student:student /export/nfs/miniproject/ -R
 // sudo rm miniproject.out 
 // sudo cp miniproject.out /export/nfs
 // minicom -D /dev/ttyS0 -> Ctrl+A -> Z -> o -> e -> e -> enter -> enter -> exit
 // pwd: see your current directory
-
-
 
 int main(void){
 

@@ -21,7 +21,7 @@ void init_PID(){
 	reference = 1;
 	kp = 10;
 	ki = 800;
-	kd = 0;
+	kd = 0.01;
 	dt = 0.004;
 	prevError = 0;
 	integral = 0;

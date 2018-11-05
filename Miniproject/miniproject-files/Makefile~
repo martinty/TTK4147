@@ -1,9 +1,10 @@
 CC = /home/student/Desktop/buildroot/output/staging/usr/bin/avr32-linux-gcc
+LDFLAGS = -pthread
 EXECNAME = miniproject.out
 NFSTARGET = /export/nfs/miniproject
 
 all: main.o udp.o com.o controller.o time.o
-	$(CC) main.o udp.o com.o controller.o time.o -o $(EXECNAME)
+	$(CC) $(LDFLAGS) main.o udp.o com.o controller.o time.o -o $(EXECNAME)
 	cp $(EXECNAME) $(NFSTARGET)
 
 main.o: main.c

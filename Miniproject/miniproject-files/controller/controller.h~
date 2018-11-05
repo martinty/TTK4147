@@ -1,8 +1,8 @@
 
 #pragma once
 
-
 void init_PID(void);
 void update_PID(void);
 void update_system(void);
-void* controll_handler(void* args);
+void controller_y_is_ready(void);
+void* controller_handler(void* args);

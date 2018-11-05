@@ -1,9 +1,8 @@
-#include <time.h>
 #define _GNU_SOURCE
+#include <time.h>
 #include <unistd.h>
 #include <sys/syscall.h>
-
-#include "time.h"
+#include "timer.h"
 
 struct timespec realTime;
 struct timespec referenceTime;
@@ -42,15 +41,14 @@ int timespec_cmp(struct timespec lhs, struct timespec rhs){
     return lhs.tv_nsec - rhs.tv_nsec;
 }
 
-void time_start_timer(){
+void timer_start_timer(void){
     clock_gettime(CLOCK_MONOTONIC, &realTime);
     referenceTime = timespec_add(second, realTime);
 }
 
-int time_check_timer(){
+int timer_check_timer(void){
     clock_gettime(CLOCK_MONOTONIC, &realTime);
     if(timespec_cmp(realTime, referenceTime) > 0){
-        referenceTime = timespec_add(second, realTime);
         return 1;
     }
     return 0;   

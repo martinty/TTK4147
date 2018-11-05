@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "com.h" 
 #include "../network/udp.h"
@@ -38,19 +37,23 @@ void get_msg_from_server(void){
     udpconn_send(conn, sendBuf);
     
     //recieve get
-    char recvBuf[64];
-    udpconn_receive(conn, recvBuf, sizeof(recvBuf));
-    //printf(recvBuf);
-    printf("\n");
-    if(recvBuf[0] == 'S'){
-        signal = 1;
-        get_msg_from_server();
-    }
-    else{
-        char* value;
-        value = recvBuf;
-        value = value+8;
-        y = atof(value);
+    
+    int get = 1;
+    while(get){
+
+        char recvBuf[64];
+        udpconn_receive(conn, recvBuf, sizeof(recvBuf));
+        
+        if(recvBuf[0] == 'S'){
+            get_msg_from_server();
+        }
+        else if(recvBuf[0] == 'G') {
+            char* value;
+            value = recvBuf;
+            value = value+8;
+            y = atof(value);
+            get = 0;
+        }
     }
 }
 
