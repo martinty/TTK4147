@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QdeProjectsBuildInfo>
+<qdeBuildInfo IMemento.internal.id="C:/Users/martinty/Desktop/lab_9/lab9" buildConfig="_x86_r" projectName="lab9">
+<srcDirs>
+<element>C:/Users/martinty/Desktop/lab_9/lab9/x86/o</element>
+<element>C:/Users/martinty/Desktop/lab_9/lab9/x86</element>
+<element>C:/Users/martinty/Desktop/lab_9/lab9</element>
+</srcDirs>
+<libDirs>
+<element>C:/Users/martinty/Desktop/lab_9/lab9/x86/o</element>
+<element>C:/QNX650/target/qnx6/x86/lib</element>
+<element>C:/QNX650/target/qnx6/x86/usr/lib</element>
+</libDirs>
+<incDirs>
+<element>C:/QNX650/target/qnx6/usr/include</element>
+<element>C:/Users/martinty/Desktop/lab_9/lab9/x86/o</element>
+<element>C:/Users/martinty/Desktop/lab_9/lab9/x86</element>
+<element>C:/Users/martinty/Desktop/lab_9/lab9</element>
+</incDirs>
+<libs/>
+<SRCS>
+<element>C:/Users/martinty/Desktop/lab_9/lab9/lab9.c</element>
+</SRCS>
+</qdeBuildInfo>
+</QdeProjectsBuildInfo>

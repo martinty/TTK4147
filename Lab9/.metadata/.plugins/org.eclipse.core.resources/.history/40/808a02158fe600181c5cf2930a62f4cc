@@ -1,0 +1,64 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/dispatch.h>
+#include <pthread.h>
+#include <unistd.h>
+
+int chID;
+int pID;
+int serverInit = 0;
+
+void* client_handler(void* arg){
+	while(!serverInit){}
+	int coID = ConnectAttach(0, pID, chID, 0, 0);
+	void *smsg[64];
+	void *rmsg[64];
+	printf("Client start\n");
+	smsg[0] = "YOLOSWAGTEAM";
+	MsgSend(coID, &smsg, 64, &rmsg, 64);
+	printf("Client: Msg sent and ACK\n");
+	ConnectDetach(coID);
+	printf("Client: Connecting detached\n");
+}
+
+void* server_handler(void* arg){
+	chID = ChannelCreate(0);
+	pID = getpid();
+	void *smsg[64];
+	_msg_info* info;
+	serverInit = 1;
+	printf("Server start\n");
+	while(1){
+		int rcvID = MsgReceive(chID, &smsg, 64, &info);
+		if (rcvID > 0){
+			printf("Server: Recived msg %s\n",smsg[0]);
+			MsgReply(rcvID, 0, NULL, 0);
+			printf("Server: ACK sent\n");
+		}
+	}
+}
+
+int main(int argc, char *argv[]) {
+	pthread_t client[4];
+	pthread_t server;
+
+	pthread_create(&server, NULL, server_handler, NULL);
+
+
+	int i = 0;
+	while (i < 4){
+		pthread_create(&client[i], NULL, client_handler, NULL);
+		i++;
+	}
+
+	i = 0;
+	while (i < 4){
+		pthread_join(client[i], NULL);
+		i++;
+	}
+	pthread_join(server, NULL);
+
+	return EXIT_SUCCESS;
+}
+
+
